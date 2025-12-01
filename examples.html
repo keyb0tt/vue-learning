@@ -1,154 +1,158 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exemplos Vue</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <!-- Interpolação de texto -->
-        <h1>{{ titulo }}</h1>
-        <p>{{ descricao }}</p>
+      <!-- Interpolação de texto -->
+      <h1>{{ titulo }}</h1>
+      <p>{{ descricao }}</p>
 
-        <!-- v-bind: vincula atributos -->
-        <img v-bind:src="imagemUrl" v-bind:alt="imagemAlt">
-        <a :href="linkUrl">{{ linkTexto }}</a>
+      <!-- v-bind: vincula atributos -->
+      <img v-bind:src="imagemUrl" v-bind:alt="imagemAlt" />
+      <a :href="linkUrl">{{ linkTexto }}</a>
 
-        <!-- v-model: two-way data binding -->
-        <input type="text" v-model="nome">
-        <p>Você digitou: {{ nome }}</p>
+      <!-- v-model: two-way data binding -->
+      <input type="text" v-model="nome" />
+      <p>Você digitou: {{ nome }}</p>
 
-        <!-- v-on ou @: eventos -->
-        <button v-on:click="incrementar">Cliques: {{ contador }}</button>
-        <button @click="resetar">Resetar</button>
+      <!-- v-on ou @: eventos -->
+      <button v-on:click="incrementar">Cliques: {{ contador }}</button>
+      <button @click="resetar">Resetar</button>
 
-        <!-- v-if, v-else-if, v-else: condicionais -->
-        <p v-if="contador === 0">Nenhum clique ainda</p>
-        <p v-else-if="contador < 5">Poucos cliques</p>
-        <p v-else>Muitos cliques!</p>
+      <!-- v-if, v-else-if, v-else: condicionais -->
+      <p v-if="contador === 0">Nenhum clique ainda</p>
+      <p v-else-if="contador < 5">Poucos cliques</p>
+      <p v-else>Muitos cliques!</p>
 
-        <!-- v-show: exibe/oculta (mantém no DOM) -->
-        <p v-show="mostrarMensagem">Esta mensagem pode ser ocultada</p>
-        <button @click="mostrarMensagem = !mostrarMensagem">Toggle Mensagem</button>
+      <!-- v-show: exibe/oculta (mantém no DOM) -->
+      <p v-show="mostrarMensagem">Esta mensagem pode ser ocultada</p>
+      <button @click="mostrarMensagem = !mostrarMensagem">
+        Toggle Mensagem
+      </button>
 
-        <!-- v-for: loops -->
-        <h2>Lista de Frutas:</h2>
-        <ul>
-            <li v-for="(fruta, index) in frutas" :key="index">
-                {{ index + 1 }}. {{ fruta }}
-            </li>
-        </ul>
+      <!-- v-for: loops -->
+      <h2>Lista de Frutas:</h2>
+      <ul>
+        <li v-for="(fruta, index) in frutas" :key="index">
+          {{ index + 1 }}. {{ fruta }}
+        </li>
+      </ul>
 
-        <!-- v-for com objetos -->
-        <h2>Informações do Usuário:</h2>
-        <ul>
-            <li v-for="(valor, chave) in usuario" :key="chave">
-                {{ chave }}: {{ valor }}
-            </li>
-        </ul>
+      <!-- v-for com objetos -->
+      <h2>Informações do Usuário:</h2>
+      <ul>
+        <li v-for="(valor, chave) in usuario" :key="chave">
+          {{ chave }}: {{ valor }}
+        </li>
+      </ul>
 
-        <!-- Computed properties -->
-        <h2>Total de itens: {{ totalItens }}</h2>
-        <p>Nome completo: {{ nomeCompleto }}</p>
+      <!-- Computed properties -->
+      <h2>Total de itens: {{ totalItens }}</h2>
+      <p>Nome completo: {{ nomeCompleto }}</p>
 
-        <!-- Classes dinâmicas -->
-        <p :class="{ ativo: isAtivo, erro: temErro }">Texto com classes dinâmicas</p>
-        <button @click="isAtivo = !isAtivo">Toggle Ativo</button>
-        <button @click="temErro = !temErro">Toggle Erro</button>
+      <!-- Classes dinâmicas -->
+      <p :class="{ ativo: isAtivo, erro: temErro }">
+        Texto com classes dinâmicas
+      </p>
+      <button @click="isAtivo = !isAtivo">Toggle Ativo</button>
+      <button @click="temErro = !temErro">Toggle Erro</button>
 
-        <!-- Estilos dinâmicos -->
-        <p :style="{ color: corTexto, fontSize: tamanhoFonte + 'px' }">
-            Texto com estilo dinâmico
-        </p>
+      <!-- Estilos dinâmicos -->
+      <p :style="{ color: corTexto, fontSize: tamanhoFonte + 'px' }">
+        Texto com estilo dinâmico
+      </p>
 
-        <!-- Adicionar item na lista -->
-        <input type="text" v-model="novaFruta" @keyup.enter="adicionarFruta">
-        <button @click="adicionarFruta">Adicionar Fruta</button>
+      <!-- Adicionar item na lista -->
+      <input type="text" v-model="novaFruta" @keyup.enter="adicionarFruta" />
+      <button @click="adicionarFruta">Adicionar Fruta</button>
     </div>
 
     <script>
-        const { createApp } = Vue;
+      const { createApp } = Vue;
 
-        createApp({
-            data() {
-                return {
-                    // Dados simples
-                    titulo: 'Exemplos Vue.js',
-                    descricao: 'Aprenda Vue com exemplos práticos',
-                    nome: '',
-                    contador: 0,
-                    mostrarMensagem: true,
-                    
-                    // Atributos
-                    imagemUrl: 'https://vuejs.org/images/logo.png',
-                    imagemAlt: 'Logo Vue',
-                    linkUrl: 'https://vuejs.org',
-                    linkTexto: 'Documentação Vue',
-                    
-                    // Arrays
-                    frutas: ['Maçã', 'Banana', 'Laranja', 'Uva'],
-                    novaFruta: '',
-                    
-                    // Objetos
-                    usuario: {
-                        nome: 'João',
-                        idade: 25,
-                        cidade: 'São Paulo'
-                    },
-                    
-                    // Classes e estilos
-                    isAtivo: false,
-                    temErro: false,
-                    corTexto: 'blue',
-                    tamanhoFonte: 16
-                }
+      createApp({
+        data() {
+          return {
+            // Dados simples
+            titulo: "Exemplos Vue.js",
+            descricao: "Aprenda Vue com exemplos práticos",
+            nome: "",
+            contador: 0,
+            mostrarMensagem: true,
+
+            // Atributos
+            imagemUrl: "https://vuejs.org/images/logo.png",
+            imagemAlt: "Logo Vue",
+            linkUrl: "https://vuejs.org",
+            linkTexto: "Documentação Vue",
+
+            // Arrays
+            frutas: ["Maçã", "Banana", "Laranja", "Uva"],
+            novaFruta: "",
+
+            // Objetos
+            usuario: {
+              nome: "João",
+              idade: 25,
+              cidade: "São Paulo",
             },
-            
-            methods: {
-                incrementar() {
-                    this.contador++;
-                },
-                
-                resetar() {
-                    this.contador = 0;
-                },
-                
-                adicionarFruta() {
-                    if (this.novaFruta.trim()) {
-                        this.frutas.push(this.novaFruta);
-                        this.novaFruta = '';
-                    }
-                }
-            },
-            
-            computed: {
-                totalItens() {
-                    return this.frutas.length;
-                },
-                
-                nomeCompleto() {
-                    return this.usuario.nome + ' - ' + this.usuario.idade + ' anos';
-                }
+
+            // Classes e estilos
+            isAtivo: false,
+            temErro: false,
+            corTexto: "blue",
+            tamanhoFonte: 16,
+          };
+        },
+
+        methods: {
+          incrementar() {
+            this.contador++;
+          },
+
+          resetar() {
+            this.contador = 0;
+          },
+
+          adicionarFruta() {
+            if (this.novaFruta.trim()) {
+              this.frutas.push(this.novaFruta);
+              this.novaFruta = "";
             }
-        }).mount('#app');
+          },
+        },
+
+        computed: {
+          totalItens() {
+            return this.frutas.length;
+          },
+
+          nomeCompleto() {
+            return this.usuario.nome + " - " + this.usuario.idade + " anos";
+          },
+        },
+      }).mount("#app");
     </script>
 
     <style>
-        .ativo {
-            color: green;
-            font-weight: bold;
-        }
-        
-        .erro {
-            color: red;
-            text-decoration: underline;
-        }
-        
-        img {
-            width: 100px;
-        }
+      .ativo {
+        color: green;
+        font-weight: bold;
+      }
+
+      .erro {
+        color: red;
+        text-decoration: underline;
+      }
+
+      img {
+        width: 100px;
+      }
     </style>
-</body>
+  </body>
 </html>
